@@ -109,3 +109,4 @@ UpgradeLog*.XML
 
 !Database/Backup
 Database/Backup/*.mdf
+Database/Backup/*.bak
