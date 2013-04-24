@@ -3,6 +3,22 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeSecond", "CodeSecond\CodeSecond.csproj", "{532FB1D8-5484-4CBF-858D-C60704FA178B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A6F5BA31-5332-4E61-A1E1-50BEBCC6C03C}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionScripts", "SolutionScripts", "{21196D6B-4B0D-4CB3-A83F-B75DF687B8DF}"
+	ProjectSection(SolutionItems) = preProject
+		SolutionScripts\01_GlobalFunctions.ps1 = SolutionScripts\01_GlobalFunctions.ps1
+		SolutionScripts\02_SolutionPaths.ps1 = SolutionScripts\02_SolutionPaths.ps1
+		SolutionScripts\03_ModuleImports.ps1 = SolutionScripts\03_ModuleImports.ps1
+		SolutionScripts\foo.ps1 = SolutionScripts\foo.ps1
+		SolutionScripts\Reset-SolutionScripts.ps1 = SolutionScripts\Reset-SolutionScripts.ps1
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
