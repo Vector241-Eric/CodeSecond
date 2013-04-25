@@ -4,7 +4,7 @@ Function global:Reset-EmptyDatabase()
     $connectionStringName = $emptyDatabase.connectionStringName
     $connectionString = Load-ConnectionString $connectionStringName $appConfigPath
 
-    $connectionStringTokens = ParseConnectionString $connectionString
+    $connectionStringTokens = ParseConnectionString $connectionString.connectionString
     Write-Host "Removing test database $($connectionStringTokens.databaseName) on $($connectionStringTokens.serverName)"
     Remove-Database $connectionStringTokens.serverName $connectionStringTokens.databaseName
     Write-Host "Database removed." -ForegroundColor DarkGreen

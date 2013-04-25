@@ -9,6 +9,9 @@ namespace Chinook.Data.Models.Mapping
         {
             // Primary Key
             this.HasKey(t => t.AlbumId);
+            Property(t => t.AlbumId)
+                .HasColumnName("AlbumId")
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
             // Properties
             this.Property(t => t.Title)
@@ -24,7 +27,8 @@ namespace Chinook.Data.Models.Mapping
             // Relationships
             this.HasRequired(t => t.Artist)
                 .WithMany(t => t.Albums)
-                .HasForeignKey(d => d.ArtistId);
+                .HasForeignKey(d => d.ArtistId)
+                .WillCascadeOnDelete(false);
 
         }
     }

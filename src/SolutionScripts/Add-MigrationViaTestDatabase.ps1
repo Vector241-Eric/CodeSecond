@@ -6,8 +6,8 @@ Function global:Add-MigrationViaTestDatabase([string]$migrationName)
     }
 
     # Make sure the database is clean
-    Reset-TestDatabase
+    Reset-EmptyDatabase
 
     # Generate the migration
-    Add-Migration -Name $migrationName -ProjectName $testDatabase.migrationsProject -StartupProjectName $testDatabase.appConfigProject -ConnectionStringName $testDatabase.connectionStringName
+    Add-Migration -Name $migrationName -ProjectName $emptyDatabase.migrationsProject -StartupProjectName $emptyDatabase.appConfigProject -ConnectionStringName $emptyDatabase.connectionStringName
 }

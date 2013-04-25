@@ -1,4 +1,4 @@
-Function global:Reset-IntegrationDatabase([string]$dbBackupName)
+Function global:Reset-IntegrationDatabaseWithoutMigrations([string]$dbBackupName)
 {
 	Function Restore-IntegrationDatabase([string]$databaseName, [string]$sqlServerName, [string]$dbBackupName)
 	{
@@ -39,10 +39,15 @@ Function global:Reset-IntegrationDatabase([string]$dbBackupName)
     $sqlServerName = $connectionStringTokens.serverName
 
     Restore-IntegrationDatabase $databaseName $sqlServerName $dbBackupName
-
-    #Migrate the database (including applying the pre-migrations)
-    Update-IntegrationDatabase
              
     DumpErrors;
 }
 
+Function global:Reset-IntegrationDatabase([string]$dbBackupName)
+{
+	Reset-IntegrationDatabaseWithoutMigrations $dbBackupName
+
+    #Migrate the database (including applying the pre-migrations)
+    Update-IntegrationDatabase
+	
+}

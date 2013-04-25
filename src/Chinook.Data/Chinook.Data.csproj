@@ -47,9 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201304251009083_Base.cs" />
-    <Compile Include="Migrations\201304251009083_Base.Designer.cs">
-      <DependentUpon>201304251009083_Base.cs</DependentUpon>
+    <Compile Include="Migrations\201304251550578_Base.cs" />
+    <Compile Include="Migrations\201304251550578_Base.Designer.cs">
+      <DependentUpon>201304251550578_Base.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Album.cs" />
@@ -77,15 +77,34 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Chinook\Chinook_SqlServerCompact.sqlce" />
+    <None Include="Chinook\Chinook_SqlServerCompact_AutoIncrementPKs.sqlce" />
+    <None Include="Chinook\CreateDb2.bat" />
+    <None Include="Chinook\CreateMySql.bat" />
+    <None Include="Chinook\CreateOracle.bat" />
+    <None Include="Chinook\CreatePostgreSql.bat" />
+    <None Include="Chinook\CreateSqlite.bat" />
+    <None Include="Chinook\CreateSqlServer.bat" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201304251009083_Base.resx">
-      <DependentUpon>201304251009083_Base.cs</DependentUpon>
-    </EmbeddedResource>
+    <Content Include="Chinook\Chinook_Db2.sql" />
+    <Content Include="Chinook\Chinook_EffiProz.sql" />
+    <Content Include="Chinook\Chinook_EffiProz_AutoIncrementPKs.sql" />
+    <Content Include="Chinook\Chinook_MySql.sql" />
+    <Content Include="Chinook\Chinook_MySql_AutoIncrementPKs.sql" />
+    <Content Include="Chinook\Chinook_Oracle.sql" />
+    <Content Include="Chinook\Chinook_PostgreSql.sql" />
+    <Content Include="Chinook\Chinook_Sqlite.sql" />
+    <Content Include="Chinook\Chinook_Sqlite_AutoIncrementPKs.sql" />
+    <Content Include="Chinook\Chinook_SqlServer.sql" />
+    <Content Include="Chinook\Chinook_SqlServer_AutoIncrementPKs.sql" />
+    <Content Include="PreMigrations\9999-MigrationHistory-Init.sql" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="PreMigrations\9999-MigrationHistory-Init.sql" />
+    <EmbeddedResource Include="Migrations\201304251550578_Base.resx">
+      <DependentUpon>201304251550578_Base.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

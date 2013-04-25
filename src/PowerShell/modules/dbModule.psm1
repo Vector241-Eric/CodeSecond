@@ -4,6 +4,14 @@
 [System.Reflection.Assembly]::LoadWithPartialName("Microsoft.SqlServer.ConnectionInfo") | Out-Null
 [System.Reflection.Assembly]::LoadWithPartialName("Microsoft.SqlServer.SmoEnum") | Out-Null
 
+Function Get-SqlConnectionString ([string] $serverName, [string] $databaseName, [Net.NetworkCredential] $creds)
+{
+    if (($creds -eq $null) -or ($creds.UserName -eq "")) {
+        "Server=$serverName;Database=$databaseName;Trusted_Connection=True;"
+    } else {
+        "Server=$serverName;Database=$databaseName;User ID=$($creds.UserName);Password=$($creds.Password);"
+    }
+}
 
 Function Get-Server([string]$sql_server, [string]$user = $null, [System.Security.SecureString]$pass = $null)
 {
@@ -25,6 +33,55 @@ Function Get-Server([string]$sql_server, [string]$user = $null, [System.Security
     $server.ConnectionContext.StatementTimeout = 0
     
     $server
+}
+
+Function Invoke-SqlScript ([string]$connectionString, [string]$sql, [Int32]$commandTimeout = 30)
+{
+    # Strip out all block comments
+    $sql_no_comments = $sql -replace "(?s)/\*.*?\*/", ""
+    
+    # Parse out the individual commands within the script
+    $sql_no_go = $sql_no_comments -replace "(?m)^\s*GO\s*$", "~"
+    $sql_commands = $sql_no_go.Split([char[]]@("~"))
+    
+    ## Connect to the data source and open it
+    $connection = New-Object System.Data.SqlClient.SqlConnection $connectionString
+    $connection.Open()
+    
+    try {
+        $command = New-Object System.Data.SqlClient.SqlCommand
+        $command.Connection = $connection
+        $command.CommandTimeout = $commandTimeout
+        foreach ($sql_command in $sql_commands) {
+            # Skip empty commands
+            if ([System.String]::IsNullOrEmpty($sql_command)) {
+                continue
+            }
+            
+            # Execute sql command
+            $command.CommandText = $sql_command
+            $result = $command.ExecuteNonQuery()
+            
+            # Capture and report errors
+            trap [Exception]
+            {
+                Write-Host $_.Exception.Message -ForegroundColor Red
+                Write-Host "Failing command: " $sql_command
+                Write-Host "Last successful command:" $last_successful_command
+                throw
+            }
+            
+            # Make note of last successful command, to aid in troubleshooting the problem
+            $last_successful_command = $sql_command
+        }
+    } finally {    
+        # Clean up our objects
+        if ($command -ne $null) {
+            $command.Dispose()
+        }
+            
+        $connection.Close()
+    }
 }
 
 Function Test-DatabaseExists([Microsoft.SqlServer.Management.Smo.Server]$server, $databaseName) {

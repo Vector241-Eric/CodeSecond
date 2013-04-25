@@ -11,7 +11,7 @@ namespace Chinook.Data.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201304251009083_Base"; }
+            get { return "201304251550578_Base"; }
         }
         
         string IMigrationMetadata.Source
