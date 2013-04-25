@@ -21,16 +21,7 @@ Function global:Update-IntegrationDatabase()
     $databaseLogin = $connectionStringTokens.databaseLogin
     $databasePassword = $connectionStringTokens.databasePassword
 
-    $securePassword = $databasePassword | ConvertTo-SecureString -AsPlainText -Force
-
-    [System.Reflection.Assembly]::LoadWithPartialName('Microsoft.SqlServer.SMO') | out-null
-
-    $server = new-object ('Microsoft.SqlServer.Management.Smo.Server') $serverName
-
-    $server.ConnectionContext.LoginSecure=$false;
-    $server.ConnectionContext.set_Login($databaseLogin);
-    $server.ConnectionContext.set_SecurePassword($securePassword)
-    $server.ConnectionContext.ApplicationName="SolutionScripts"
+    $server = Get-Server $serverName $databaseLogin $databasePassword
 
     if (($server.Databases.Contains($databaseName)))
     {
@@ -39,7 +30,7 @@ Function global:Update-IntegrationDatabase()
         {
             $projectDirectory = Get-ProjectDirectory $migrationsProject
             Write-Host "Using project directory at $projectDirectory"
-            $migrationScriptDirectory = Join-Path -Path $projectDirectory -ChildPath "\Migrations\SQL\BaseMigration"
+            $migrationScriptDirectory = Join-Path -Path $projectDirectory -ChildPath "\PreMigrations"
             Write-Host "Applying scripts from $migrationScriptDirectory"
             $sqlFiles = [IO.Directory]::GetFiles($migrationScriptDirectory, "*.sql")
             [array]::sort($sqlFiles)

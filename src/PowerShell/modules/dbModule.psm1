@@ -228,4 +228,4 @@ Function Remove-Database ([string]$sql_server, [string]$database_name, [string] 
 }
 
 
-Export-ModuleMember Restore-Database32, Remove-Database
+Export-ModuleMember Restore-Database32, Remove-Database, Get-Server

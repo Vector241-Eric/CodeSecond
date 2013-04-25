@@ -41,7 +41,7 @@ Function global:Reset-IntegrationDatabase([string]$dbBackupName)
     Restore-IntegrationDatabase $databaseName $sqlServerName $dbBackupName
 
     #Migrate the database (including applying the pre-migrations)
-    #Update-IntegrationDatabase
+    Update-IntegrationDatabase
              
     DumpErrors;
 }
