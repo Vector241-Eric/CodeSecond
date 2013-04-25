@@ -1,6 +1,3 @@
-# *************************************************************************
-# Copyright (C) 2010, Michael & Susan Dell Foundation. All Rights Reserved.
-# *************************************************************************
 Function global:Reset-IntegrationDatabase([string]$dbBackupName)
 {
 	Function Restore-IntegrationDatabase([string]$databaseName, [string]$sqlServerName, [string]$dbBackupName)

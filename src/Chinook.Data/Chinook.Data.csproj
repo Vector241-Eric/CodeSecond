@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{10CEA04A-84C1-462F-81C0-9C688CE0A1FA}</ProjectGuid>
+    <ProjectGuid>{A12814AC-B9BA-418F-95E6-90B786761A91}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FullDatabaseTests</RootNamespace>
-    <AssemblyName>FullDatabaseTests</AssemblyName>
+    <RootNamespace>Chinook.Data</RootNamespace>
+    <AssemblyName>Chinook.Data</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -35,13 +35,11 @@
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.0.0-alpha3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="Should">
-      <HintPath>..\packages\Should.1.1.12.0\lib\Should.dll</HintPath>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.0-alpha3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -50,18 +48,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\SmokeTest.cs" />
+    <Compile Include="Models\Album.cs" />
+    <Compile Include="Models\Artist.cs" />
+    <Compile Include="ChinookContext.cs" />
+    <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\Genre.cs" />
+    <Compile Include="Models\Invoice.cs" />
+    <Compile Include="Models\InvoiceLine.cs" />
+    <Compile Include="Models\Mapping\AlbumMap.cs" />
+    <Compile Include="Models\Mapping\ArtistMap.cs" />
+    <Compile Include="Models\Mapping\CustomerMap.cs" />
+    <Compile Include="Models\Mapping\EmployeeMap.cs" />
+    <Compile Include="Models\Mapping\GenreMap.cs" />
+    <Compile Include="Models\Mapping\InvoiceLineMap.cs" />
+    <Compile Include="Models\Mapping\InvoiceMap.cs" />
+    <Compile Include="Models\Mapping\MediaTypeMap.cs" />
+    <Compile Include="Models\Mapping\PlaylistMap.cs" />
+    <Compile Include="Models\Mapping\TrackMap.cs" />
+    <Compile Include="Models\MediaType.cs" />
+    <Compile Include="Models\Playlist.cs" />
+    <Compile Include="Models\Track.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Chinook.Data\Chinook.Data.csproj">
-      <Project>{a12814ac-b9ba-418f-95e6-90b786761a91}</Project>
-      <Name>Chinook.Data</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
