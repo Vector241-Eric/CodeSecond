@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
-
 namespace Chinook.Data.Models
 {
-    public partial class InvoiceLine
+    public class InvoiceLine
     {
         public int InvoiceLineId { get; set; }
         public int InvoiceId { get; set; }

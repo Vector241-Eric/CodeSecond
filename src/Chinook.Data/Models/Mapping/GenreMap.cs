@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 
 namespace Chinook.Data.Models.Mapping
@@ -8,16 +7,16 @@ namespace Chinook.Data.Models.Mapping
         public GenreMap()
         {
             // Primary Key
-            this.HasKey(t => t.GenreId);
+            HasKey(t => t.GenreId);
 
             // Properties
-            this.Property(t => t.Name)
+            Property(t => t.Name)
                 .HasMaxLength(120);
 
             // Table & Column Mappings
-            this.ToTable("Genre");
-            this.Property(t => t.GenreId).HasColumnName("GenreId");
-            this.Property(t => t.Name).HasColumnName("Name");
+            ToTable("Genre");
+            Property(t => t.GenreId).HasColumnName("GenreId");
+            Property(t => t.Name).HasColumnName("Name");
         }
     }
 }

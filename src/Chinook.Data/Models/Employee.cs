@@ -3,21 +3,21 @@ using System.Collections.Generic;
 
 namespace Chinook.Data.Models
 {
-    public partial class Employee
+    public class Employee
     {
         public Employee()
         {
-            this.Customers = new List<Customer>();
-            this.Employee1 = new List<Employee>();
+            Customers = new List<Customer>();
+            Employee1 = new List<Employee>();
         }
 
         public int EmployeeId { get; set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }
         public string Title { get; set; }
-        public Nullable<int> ReportsTo { get; set; }
-        public Nullable<System.DateTime> BirthDate { get; set; }
-        public Nullable<System.DateTime> HireDate { get; set; }
+        public int? ReportsTo { get; set; }
+        public DateTime? BirthDate { get; set; }
+        public DateTime? HireDate { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
         public string State { get; set; }

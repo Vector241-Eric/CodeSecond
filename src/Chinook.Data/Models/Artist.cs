@@ -1,13 +1,12 @@
-using System;
 using System.Collections.Generic;
 
 namespace Chinook.Data.Models
 {
-    public partial class Artist
+    public class Artist
     {
         public Artist()
         {
-            this.Albums = new List<Album>();
+            Albums = new List<Album>();
         }
 
         public int ArtistId { get; set; }

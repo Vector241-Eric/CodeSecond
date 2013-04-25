@@ -1,13 +1,12 @@
-using System;
 using System.Collections.Generic;
 
 namespace Chinook.Data.Models
 {
-    public partial class Customer
+    public class Customer
     {
         public Customer()
         {
-            this.Invoices = new List<Invoice>();
+            Invoices = new List<Invoice>();
         }
 
         public int CustomerId { get; set; }
@@ -22,7 +21,7 @@ namespace Chinook.Data.Models
         public string Phone { get; set; }
         public string Fax { get; set; }
         public string Email { get; set; }
-        public Nullable<int> SupportRepId { get; set; }
+        public int? SupportRepId { get; set; }
         public virtual Employee Employee { get; set; }
         public virtual ICollection<Invoice> Invoices { get; set; }
     }

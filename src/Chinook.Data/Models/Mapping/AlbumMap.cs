@@ -9,9 +9,6 @@ namespace Chinook.Data.Models.Mapping
         {
             // Primary Key
             this.HasKey(t => t.AlbumId);
-            Property(t => t.AlbumId)
-                .HasColumnName("AlbumId")
-                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
             // Properties
             this.Property(t => t.Title)

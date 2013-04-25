@@ -42,6 +42,7 @@ namespace Chinook.Data
             modelBuilder.Configurations.Add(new InvoiceLineMap());
             modelBuilder.Configurations.Add(new MediaTypeMap());
             modelBuilder.Configurations.Add(new PlaylistMap());
+            modelBuilder.Configurations.Add(new PlaylistTrackMap());
             modelBuilder.Configurations.Add(new TrackMap());
         }
     }

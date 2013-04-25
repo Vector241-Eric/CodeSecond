@@ -47,9 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201304251550578_Base.cs" />
-    <Compile Include="Migrations\201304251550578_Base.Designer.cs">
-      <DependentUpon>201304251550578_Base.cs</DependentUpon>
+    <Compile Include="Migrations\201304251906302_Base.cs" />
+    <Compile Include="Migrations\201304251906302_Base.Designer.cs">
+      <DependentUpon>201304251906302_Base.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Album.cs" />
@@ -69,9 +69,11 @@
     <Compile Include="Models\Mapping\InvoiceMap.cs" />
     <Compile Include="Models\Mapping\MediaTypeMap.cs" />
     <Compile Include="Models\Mapping\PlaylistMap.cs" />
+    <Compile Include="Models\Mapping\PlaylistTrackMap.cs" />
     <Compile Include="Models\Mapping\TrackMap.cs" />
     <Compile Include="Models\MediaType.cs" />
     <Compile Include="Models\Playlist.cs" />
+    <Compile Include="Models\PlaylistTrack.cs" />
     <Compile Include="Models\Track.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -99,11 +101,14 @@
     <Content Include="Chinook\Chinook_Sqlite_AutoIncrementPKs.sql" />
     <Content Include="Chinook\Chinook_SqlServer.sql" />
     <Content Include="Chinook\Chinook_SqlServer_AutoIncrementPKs.sql" />
+    <Content Include="PreMigrations\0001-VariousTables-RenameConstraints.sql" />
+    <Content Include="PreMigrations\0002-Artist-AutoId.sql" />
+    <Content Include="PreMigrations\0003-Album-AutoId.sql" />
     <Content Include="PreMigrations\9999-MigrationHistory-Init.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201304251550578_Base.resx">
-      <DependentUpon>201304251550578_Base.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201304251906302_Base.resx">
+      <DependentUpon>201304251906302_Base.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
