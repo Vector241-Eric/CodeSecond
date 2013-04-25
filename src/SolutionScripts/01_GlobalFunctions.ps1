@@ -54,15 +54,17 @@ Function global:Load-ConnectionString([string]$connectionStringName, [string]$so
 
     # initialize the xml object
     $appConfig = New-Object XML
-    # load the config file as an xml object
+    
+	# load the config file as an xml object
     $appConfig.Load($absolutePath)
-    # iterate over the settings
+    
+	# iterate over the settings
     # TODO:  Separate out a function to find the connection string
     foreach($connectionString in $appConfig.configuration.connectionStrings.add)
     {
         if ($connectionString.name -eq $connectionStringName)
         {
-            return $connectionString.connectionString
+            return $connectionString
         }
     }
 }

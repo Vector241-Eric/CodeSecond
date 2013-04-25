@@ -1,16 +1,9 @@
-$global:testDatabase = @{}
-$testDatabase.migrationsProject = "Data.Entities"
-$testDatabase.appConfigProject = "EmptyDatabaseTests"
-$testDatabase.connectionStringName = "emptyTestDatabase"
+$global:emptyDatabase = @{}
+$emptyDatabase.migrationsProject = "Chinook.Data"
+$emptyDatabase.appConfigProject = "EmptyDatabaseTests"
+$emptyDatabase.connectionStringName = "EmptyTestDatabase"
 
 $global:integrationDatabase = @{}
-$integrationDatabase.migrationsProject = "Data.Entities"
+$integrationDatabase.migrationsProject = "Chinook.Data"
 $integrationDatabase.appConfigProject = "FullDatabaseTests"
-$integrationDatabase.connectionStringName = "FullTestDatabase"
-
-$global:unmigratedDatabase = @{}
-$unmigratedDatabase.appConfigProject = "UnmigratedDatabaseTests"
-$unmigratedDatabase.connectionStringName = "UnmigratedTestDatabase"
-
-$global:appDataSettingsPath = Join-Path -Path $env:APPDATA -ChildPath "MetricsDB/DeveloperConfig"
-$global:workingCopySettingsPath = Join-Path -Path $solutionPaths.repositoryRoot -ChildPath "DeveloperConfig"
+$integrationDatabase.connectionStringName = "ChinookContext"

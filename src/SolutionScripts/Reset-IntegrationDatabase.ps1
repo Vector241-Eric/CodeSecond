@@ -31,7 +31,8 @@ Function global:Reset-IntegrationDatabase([string]$dbBackupName)
     $appConfigPath = "$($integrationDatabase.appConfigProject)\App.config"
     $connectionStringName = $integrationDatabase.connectionStringName
 
-    $connectionString = Load-ConnectionString $connectionStringName $appConfigPath
+    $connectionStringElement = Load-ConnectionString $connectionStringName $appConfigPath
+    $connectionString = $connectionStringElement.connectionString
     $connectionStringTokens = ParseConnectionString $connectionString
 
     $databaseName = $connectionStringTokens.databaseName

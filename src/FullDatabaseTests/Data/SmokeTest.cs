@@ -13,7 +13,7 @@ namespace FullDatabaseTests.Data
             [Test]
             public void Should_query_stuff()
             {
-                var context = new ChinookContext("FullTestDatabase");
+                var context = new ChinookContext();
                 var albumCount = context.Albums.Count();
                 Console.WriteLine("Found {0} albums", albumCount);
             }

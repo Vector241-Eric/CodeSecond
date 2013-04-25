@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeSecond", "CodeSecond\CodeSecond.csproj", "{532FB1D8-5484-4CBF-858D-C60704FA178B}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A6F5BA31-5332-4E61-A1E1-50BEBCC6C03C}"
 	ProjectSection(SolutionItems) = preProject
 		.nuget\NuGet.Config = .nuget\NuGet.Config
@@ -17,17 +15,24 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionScripts", "Solution
 		SolutionScripts\03_ModuleImports.ps1 = SolutionScripts\03_ModuleImports.ps1
 		SolutionScripts\04_GlobalVariables.ps1 = SolutionScripts\04_GlobalVariables.ps1
 		SolutionScripts\05_VisualStudioOnlyFunctions.ps1 = SolutionScripts\05_VisualStudioOnlyFunctions.ps1
+		SolutionScripts\Add-MigrationViaTestDatabase.ps1 = SolutionScripts\Add-MigrationViaTestDatabase.ps1
+		SolutionScripts\Reset-AllDatabases.ps1 = SolutionScripts\Reset-AllDatabases.ps1
+		SolutionScripts\Reset-EmptyDatabase.ps1 = SolutionScripts\Reset-EmptyDatabase.ps1
 		SolutionScripts\Reset-IntegrationDatabase.ps1 = SolutionScripts\Reset-IntegrationDatabase.ps1
 		SolutionScripts\Reset-SolutionScripts.ps1 = SolutionScripts\Reset-SolutionScripts.ps1
+		SolutionScripts\Update-EmptyDatabase.ps1 = SolutionScripts\Update-EmptyDatabase.ps1
+		SolutionScripts\Update-IntegrationDatabase.ps1 = SolutionScripts\Update-IntegrationDatabase.ps1
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FullDatabaseTests", "FullDatabaseTests\FullDatabaseTests.csproj", "{10CEA04A-84C1-462F-81C0-9C688CE0A1FA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E29EB283-7D36-4D2E-A218-927CCAFB6EAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{013E87A3-BD51-4328-BCB4-B586FF469490}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chinook.Data", "Chinook.Data\Chinook.Data.csproj", "{A12814AC-B9BA-418F-95E6-90B786761A91}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmptyDatabaseTests", "EmptyDatabaseTests\EmptyDatabaseTests.csproj", "{460FDDD8-7976-4C1D-A770-42C45E19716A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeSecond", "CodeSecond\CodeSecond.csproj", "{A4980341-0F1C-4AB5-8C9D-10E3F6DD61F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,27 +40,28 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{532FB1D8-5484-4CBF-858D-C60704FA178B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{532FB1D8-5484-4CBF-858D-C60704FA178B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{532FB1D8-5484-4CBF-858D-C60704FA178B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{532FB1D8-5484-4CBF-858D-C60704FA178B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{10CEA04A-84C1-462F-81C0-9C688CE0A1FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{10CEA04A-84C1-462F-81C0-9C688CE0A1FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10CEA04A-84C1-462F-81C0-9C688CE0A1FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10CEA04A-84C1-462F-81C0-9C688CE0A1FA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{013E87A3-BD51-4328-BCB4-B586FF469490}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{013E87A3-BD51-4328-BCB4-B586FF469490}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{013E87A3-BD51-4328-BCB4-B586FF469490}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{013E87A3-BD51-4328-BCB4-B586FF469490}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A12814AC-B9BA-418F-95E6-90B786761A91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A12814AC-B9BA-418F-95E6-90B786761A91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A12814AC-B9BA-418F-95E6-90B786761A91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A12814AC-B9BA-418F-95E6-90B786761A91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{460FDDD8-7976-4C1D-A770-42C45E19716A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{460FDDD8-7976-4C1D-A770-42C45E19716A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{460FDDD8-7976-4C1D-A770-42C45E19716A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{460FDDD8-7976-4C1D-A770-42C45E19716A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4980341-0F1C-4AB5-8C9D-10E3F6DD61F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4980341-0F1C-4AB5-8C9D-10E3F6DD61F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4980341-0F1C-4AB5-8C9D-10E3F6DD61F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4980341-0F1C-4AB5-8C9D-10E3F6DD61F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{10CEA04A-84C1-462F-81C0-9C688CE0A1FA} = {E29EB283-7D36-4D2E-A218-927CCAFB6EAB}
+		{460FDDD8-7976-4C1D-A770-42C45E19716A} = {E29EB283-7D36-4D2E-A218-927CCAFB6EAB}
 	EndGlobalSection
 EndGlobal

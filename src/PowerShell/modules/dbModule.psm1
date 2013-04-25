@@ -27,6 +27,20 @@ Function Get-Server([string]$sql_server, [string]$user = $null, [System.Security
     $server
 }
 
+Function Test-DatabaseExists([Microsoft.SqlServer.Management.Smo.Server]$server, $databaseName) {
+    $found = $false
+    #Makesure we have the latest database information.
+    $server.Databases.Refresh($true)
+    foreach ($db in $server.Databases) {
+        if ($db.Name -eq $databaseName) {
+            $found = $true
+            break
+        }
+    }
+    
+    $found
+}
+
 Function Restore-Database32 ([string]$sqlServer, [string]$databaseName, [string] $user = $null, [System.Security.SecureString] $pass = $null, [string] $backupFile, [Hashtable] $usersToReassociate, [string] $dataPath = $null, [string] $logPath = $null) {
     trap [Exception] { 
         write-error $("ERROR: " + $_.Exception.ToString()); 
@@ -136,4 +150,82 @@ Function Restore-Database32 ([string]$sqlServer, [string]$databaseName, [string]
     }   
 }
 
-Export-ModuleMember Restore-Database32
+# Will delete the database if it exists
+Function Remove-Database ([string]$sql_server, [string]$database_name, [string] $username = $null, [System.Security.SecureString] $password = $null, [switch]$safe)
+{
+    try {
+        $s = Get-Server $sql_server $username $password
+        if (Test-DatabaseExists $s $database_name) {
+            if ($password -eq $null) {
+                $netCreds = new-object Net.NetworkCredential($username, $null)
+            }
+            else {
+                $netCreds = new-object Net.NetworkCredential($username, ([System.Runtime.InteropServices.marshal]::PtrToStringAuto([System.Runtime.InteropServices.marshal]::SecureStringToBSTR($password))))
+            }
+            $connectionString = Get-SqlConnectionString $sql_server "master" $netCreds
+            #Try to kill db connections ahead of time.
+            $killUsersSQL = @"
+                            -- Create the sql to kill the active database connections 
+                            declare @execSql varchar(1000), @databaseName varchar(100) 
+                            -- Set the database name for which to kill the connections 
+                            set @databaseName = '$($database_name)' 
+                            set @execSql = '' 
+                            select @execSql = @execSql + 'kill ' + convert(varchar(10), spid) + ' ' 
+                           from master..sysprocesses 
+                           where db_name(dbid) = '$database_name'
+                            and DBID <> 0 
+                            and spid <> @@spid 
+                            and status <> 'background' 
+                            -- to get the user process
+                            and status in ('runnable','sleeping') 
+                            exec (@execSql) 
+                            GO
+"@
+            Invoke-SqlScript $connectionString $killUsersSQL
+            if ($safe) {
+                #$db = $s.Databases.Item("$database_name")
+                #Try to make sure there is nothing pending. This didn't work.
+                #$s.KillAllProcesses("$database_name") $db.SetOffline(); $db.SetOnline();
+                #This is very fast if nothing is pending, otherwise it will cause a wait, but prevent an error.
+                $this = Resolve-Path "$($folders.modules.invoke('\database\database-management.psm1'))"
+                $scriptCommand = {$vars = $null
+                $Input.'<>4__this'.read() | %{$vars = $_};
+                foreach ($var in $vars.Keys) {if ("$var" -ne ""){Set-Variable $var -Value $($vars[$var]) -Scope Script -Force}};
+                Import-Module $this;
+                $s = Get-Server $sql_server $username $password;
+                $db = $s.Databases.Item("$database_name");
+                $db.SetOffline();
+                $db.SetOnline();}
+                Start-Job -Name "DB_Stop_$database_name" $scriptCommand -InputObject @{sql_server = $sql_server; username = $username; password = $password; database_name = $database_name; this = $this}
+                $timeout = 0
+                do{
+                    $job = Get-Job -Name "DB_Stop_$database_name" | where { $_.State -ne "Completed"}
+                    if ($job) {
+                        if($job.State -eq "Failed") { throw "Stopping $database_name failed!"; break}
+                        if($timeout % 10 -eq 0) { Write-Host "Status: $($job.State)" }
+                        Sleep 1
+                        $timeout++
+                    }
+                    else { break }
+                }while ($timeout -lt 600)
+                if ($timeout -ge 599) {
+                    throw "Failed to stop $database_name after 10 min. Please check if there are any active connection to the database."
+                }
+                else {
+                    #Clear Log
+                    receive-job -Name "DB_Stop_$database_name"
+                }
+            }
+            $s.KillDatabase($database_name)
+            Write-Host "Removed database $database_name"
+        } else {
+            Write-Host "$database_name does not yet exist."
+        }
+    }
+    catch {
+        Write-Host "Attempt to remove database $database_name failed: `n`t$_`n" -ForegroundColor Red
+    }
+}
+
+
+Export-ModuleMember Restore-Database32, Remove-Database
