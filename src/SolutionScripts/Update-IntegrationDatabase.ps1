@@ -30,8 +30,10 @@ Function global:Update-IntegrationDatabase()
         {
             $projectDirectory = Get-ProjectDirectory $migrationsProject
             Write-Host "Using project directory at $projectDirectory"
+            
             $migrationScriptDirectory = Join-Path -Path $projectDirectory -ChildPath "\PreMigrations"
             Write-Host "Applying scripts from $migrationScriptDirectory"
+            
             $sqlFiles = [IO.Directory]::GetFiles($migrationScriptDirectory, "*.sql")
             [array]::sort($sqlFiles)
             foreach($sqlFile in $sqlFiles)
